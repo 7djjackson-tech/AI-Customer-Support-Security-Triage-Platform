@@ -4,6 +4,10 @@
 
 Demo mode works without an API key. It is a **deterministic rules-based simulation, not a trained AI model**. The optional OpenAI adapter is disabled by default and has not been evaluated against a live provider. No emails are sent and no account changes are performed.
 
+## Try it online / publish your own demo
+
+The public `/demo` page lets visitors explore eight fictional scenarios without an account. It is isolated from private staff tickets and never calls live AI. An Azure deployment script is included: follow [the browser-based Azure for Students instructions](docs/azure.md). No Azure website has been created by this workspace yet, so there is no verified public app URL to share until deployment succeeds.
+
 ## What is implemented
 
 - Validated fictional CSV imports, persistent tickets, search, responsive dashboard, detail pages.
@@ -33,7 +37,7 @@ The last command prompts for a password twice. Choose a private password of at l
 .\.venv\Scripts\python.exe -m flask --app app:create_app run --host 127.0.0.1 --port 5000
 ```
 
-Open **http://127.0.0.1:5000** in your local browser. Sign in as `admin`, import `data/development.csv`, and use **Staff access** to create customer-service and security users. Review tickets from their assigned queues. Ctrl+C stops the app.
+Open **http://127.0.0.1:5000** in your local browser. The public demo appears first; click **Staff sign in** and sign in as `admin`, import `data/development.csv`, and use **Staff access** to create customer-service and security users. Review tickets from their assigned queues. Ctrl+C stops the app.
 
 Tests and demo evaluation (stop the server or use another terminal in the project folder):
 
@@ -111,4 +115,4 @@ This is a fictional-data portfolio prototype, not a production support system. A
 - [Publishing source to GitHub](docs/publishing.md)
 - [Azure for Students deployment preparation](docs/azure.md)
 
-**Nothing has been deployed to Azure.** The Azure guide is preparation only; deploying requires a later explicit decision and review of student credits and service pricing.
+**Azure deployment is now requested and scripted, but has not been executed or verified.** Run the script in your authenticated Azure Cloud Shell and verify the resulting website. The script uses F1 only and does not fall back to a paid plan.

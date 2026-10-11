@@ -93,6 +93,7 @@ with tempfile.TemporaryDirectory(prefix="supportshield-smoke-") as directory:
                 .decode()
             )
 
+        assert "No account required" in get("/demo")
         post(
             "/login",
             {

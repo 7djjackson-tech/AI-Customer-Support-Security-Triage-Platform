@@ -39,3 +39,7 @@ Errors are retained in `docs/evaluation-demo.json`: a double charge, an indirect
 ## Unverified
 
 No visual browser/accessibility audit, Windows runtime execution, live-provider integration, remote GitHub Actions run, or Azure deployment was verified in this cloud environment. Windows commands avoid activation-policy issues but require a compatible installed Python. Azure preparation is documentation only.
+
+## Public-web-demo update
+
+Actual result after adding public access and the production signing-key check: **45 tests passed in 10.65 seconds**. New tests verify all eight public scenarios, separation from private ticket data, no database mutations, no live-provider calls even when live mode is configured, and production rejection of an unset signing key. Anonymous `/` now redirects to `/demo`; staff routes still require login. `bash -n scripts/deploy-azure.sh` checks shell syntax only, not Azure API execution. No authenticated Azure deployment or public URL is verified yet.

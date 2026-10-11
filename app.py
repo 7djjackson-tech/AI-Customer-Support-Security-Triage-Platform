@@ -82,6 +82,8 @@ def create_app(test_config=None):
     )
     if test_config:
         app.config.update(test_config)
+    if os.environ.get("PRODUCTION") == "true" and not os.environ.get("SECRET_KEY"):
+        raise RuntimeError("Production requires a private stable SECRET_KEY")
     CSRFProtect(app)
     Path(app.config["DATABASE"]).parent.mkdir(parents=True, exist_ok=True)
     with sqlite3.connect(app.config["DATABASE"]) as db:
@@ -197,6 +199,29 @@ def create_app(test_config=None):
             )
         )
         return render_template("evaluation.html", result=result)
+
+    @app.get("/demo")
+    def public_demo():
+        # Only repository-supplied fictional examples: no public access to SQLite tickets.
+        examples = parse_csv(
+            (Path(app.root_path) / "data/development.csv").read_bytes()
+        )
+        selected = request.args.get("example", examples[0]["external_id"])
+        example = next(
+            (item for item in examples if item["external_id"] == selected), None
+        )
+        if example is None:
+            abort(404)
+        value, source, _ = recommend(
+            example["subject"] + "\n" + example["message"], "demo"
+        )
+        return render_template(
+            "demo.html",
+            examples=examples,
+            example=example,
+            recommendation=value,
+            source=source,
+        )
 
     @app.get("/health")
     def health():
@@ -469,8 +494,9 @@ def create_app(test_config=None):
         return response
 
     @app.get("/")
-    @protected()
     def dashboard():
+        if not g.user:
+            return redirect(url_for("public_demo"))
         query = request.args.get("q", "").strip()[:160]
         # instr gives literal substring search, including SQL wildcard characters.
         scope = (

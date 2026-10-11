@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="title">
+  <div><p class="eyebrow">EXPLORE THE PORTFOLIO</p><h1>SupportShield in action</h1>
+  <p>See how a fictional retailer organizes customer requests and flags security concerns.</p></div>
+  <span class="badge">Public demo · No account required</span>
+</div>
+<section class="message">
+  <h2>1. Choose a fictional customer request</h2>
+  <form method="get" class="stack">
+    <label for="example">Sample scenario</label>
+    <select id="example" name="example">
+      {% for item in examples %}<option value="{{ item.external_id }}" {% if item.external_id == example.external_id %}selected{% endif %}>{{ item.subject }}</option>{% endfor %}
+    </select><button>Explore scenario</button>
+  </form>
+  <h3>{{ example.subject }}</h3>
+  <p class="message-text">{{ example.message }}</p>
+  <small>Fictional customer: {{ example.customer_name }}. The text is untrusted data.</small>
+</section>
+<div class="stats demo-stats">
+  <article><span>Suggested category</span><strong class="text-stat">{{ recommendation.category }}</strong><small>{{ source }} · deterministic rules</small></article>
+  <article><span>Suggested priority</span><strong class="text-stat">{{ recommendation.priority }}</strong><small>Human review required</small></article>
+  <article><span>Suggested queue</span><strong class="text-stat">{{ recommendation.routing|replace('_', ' ') }}</strong><small>No automatic account changes</small></article>
+</div>
+<section class="message">
+  <h2>2. Inspect the recommendation</h2>
+  <h3>Short summary</h3><p>{{ recommendation.summary }}</p>
+  <h3>Security evidence</h3>
+  <ul>{% for evidence in recommendation.evidence %}<li>{{ evidence }}</li>{% else %}<li>No explicit security evidence identified. This does not establish that a request is safe.</li>{% endfor %}</ul>
+  <p>{{ recommendation.uncertainty }}</p>
+  <h3>Policy-grounded draft response</h3><p class="message-text">{{ recommendation.draft }}</p>
+  <small>Policy references: {{ recommendation.policy_ids|join(', ') }}. This draft is never sent.</small>
+</section>
+<section class="message">
+  <h2>3. Understand the human decision</h2>
+  <p>In the staff workspace, an authorized reviewer can approve, edit, or reject a recommendation and record a rationale. Customer-service staff see ordinary requests; security staff see security tickets. Actions are audited.</p>
+  <p>This public sandbox is read-only and uses only the eight bundled fictional scenarios. It does not expose private staff tickets, permit imports, store visitor messages, or call a paid AI service. Staff controls require a private account.</p>
+  <a href="{{ url_for('login') }}">Staff sign in</a>
+</section>
+<section class="message">
+  <h2>Measured demo results</h2>
+  <p>On 24 separate fictional evaluation examples: 21 correct categories (87.5%), zero false security alerts among 16 ordinary cases, and one missed incident among eight incident cases.</p>
+  <p>These are rules-based demo results on a small author-created dataset, not live AI results or a production benchmark.</p>
+  <a href="https://github.com/7djjackson-tech/AI-Customer-Support-Security-Triage-Platform" rel="noopener noreferrer">View source, tests, and case study on GitHub</a>
+</section>
+{% endblock %}
