@@ -68,3 +68,5 @@ bash scripts/deploy-azure.sh
 ```
 
 The script retries westus first, canadacentral second, westus2 third. Use APP_NAME with your existing app name only if an app was already successfully created. No Azure region availability is confirmed from local/mock tests; verify the actual Cloud Shell errors and resulting website.
+
+An existing resource group is reused without changing its metadata location. For example, a group created earlier in eastus may hold a plan in westus; resource-group metadata location and App Service plan location are distinct. The script explicitly sets each plan location to an allowed region. No existing group is deleted or relocated.

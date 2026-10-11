@@ -26,7 +26,12 @@ subscription_type=$(az account show --query name --output tsv)
 echo "Selected subscription: $subscription_type"
 echo "Application: $app_name; resource group: $resource_group; SKU: Linux F1 only"
 # Resource-group metadata stays in an allowed region. Plans get an explicit location.
-az group create --name "$resource_group" --location "${regions[0]}" --output none
+group_exists=$(az group exists --name "$resource_group" --output tsv)
+if [[ $group_exists == true ]]; then
+  echo "Reusing existing resource group $resource_group without changing its metadata location."
+else
+  az group create --name "$resource_group" --location "${regions[0]}" --output none
+fi
 plan_base="$plan_name"
 selected_plan=''
 plan_error=$(mktemp)

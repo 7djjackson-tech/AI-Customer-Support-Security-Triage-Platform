@@ -20,6 +20,8 @@ with open(os.environ['MOCK_AZ_LOG'], 'a') as log:
     log.write(json.dumps(args) + '\\n')
 if args[:2] == ['account', 'show']:
     if '--query' in args: print('Test subscription')
+elif args[:2] == ['group', 'exists']:
+    print(os.environ.get('MOCK_GROUP_EXISTS', 'false'))
 elif args[:3] == ['appservice', 'plan', 'show']:
     name = args[args.index('--name') + 1]
     if os.environ.get('MOCK_EXISTING_PAID') == 'true' and name.endswith('-westus'):
@@ -91,3 +93,10 @@ def test_existing_paid_plan_is_left_unchanged(run_deployment):
     assert result.returncode == 0
     assert [p[p.index('--location') + 1] for p in plan_calls(calls)] == ['canadacentral']
     assert 'leaving it unchanged' in result.stderr
+
+
+def test_existing_resource_group_is_not_relocated(run_deployment):
+    result, calls = run_deployment(MOCK_GROUP_EXISTS="true", MOCK_SUCCESS_REGION="westus")
+    assert result.returncode == 0, result.stderr
+    assert not any(c[:2] == ["group", "create"] for c in calls)
+    assert plan_calls(calls)[0][plan_calls(calls)[0].index("--location") + 1] == "westus"
