@@ -19,9 +19,9 @@ cd AI-Customer-Support-Security-Triage-Platform
 bash scripts/deploy-azure.sh
 ```
 
-If already cloned in that Cloud Shell, run `git pull` inside the project instead of cloning again. The script creates a dedicated resource group, a Linux App Service **F1 free-tier** plan, and a uniquely named app. It sets HTTPS-only, secure cookies, a private stable signing key, persistent database path, and live AI off. It archives committed source only and deploys with a dependency build and Gunicorn startup command. The private signing key is never printed or committed.
+If already cloned in that Cloud Shell, run `git pull` inside the project instead of cloning again. The script creates a dedicated resource group, a Linux App Service **F1 free-tier** plan, trying **westus → canadacentral → westus2** in order, and a uniquely named app. It sets HTTPS-only, secure cookies, a private stable signing key, persistent database path, and live AI off. It archives committed source only and deploys with a dependency build and Gunicorn startup command. The private signing key is never printed or committed.
 
-The script does not request a paid SKU or silently upgrade if F1 is unavailable. Free-tier availability, quotas, and subscription support differ by region. A failure is not evidence that a paid upgrade is required. Review the error first. You can try a supported region with `AZURE_LOCATION=YOUR_REGION bash scripts/deploy-azure.sh`. A resource group may remain after a failure; inspect it in the portal and remove unused resources. Do not change another existing App Service plan to make deployment pass.
+The script does not request a paid SKU or silently upgrade if F1 is unavailable. Free-tier availability, quotas, and subscription support differ by region. A failure is not evidence that a paid upgrade is required. The script prints each actual Azure error and tries the next allowed region. If all fail, it stops without creating an app or choosing a paid plan. To check one allowed region only, use `AZURE_LOCATION=westus bash scripts/deploy-azure.sh` (or `canadacentral` / `westus2`). Other regions are rejected. A resource group may remain after a failure; inspect it in the portal and remove unused resources. Do not change another existing App Service plan to make deployment pass.
 
 After a successful deployment command, the terminal prints the **actual app URL**, such as `https://supportshield-<generated-name>.azurewebsites.net/demo`. Open the printed URL. It also prints `/health`, which should return `{"status":"ok"}`. Free-tier cold starts can take time. A printed URL alone is not proof of a working website: verify both pages.
 
@@ -43,7 +43,7 @@ python -m flask --app app:create_app create-staff --username admin --role admin
 
 SQLite uses `/home/supportshield/supportshield.sqlite3`; App Service Linux persistent `/home` storage must be verified in your chosen hosting mode. The command uses one Gunicorn worker and two threads. Keep this SQLite demo on one instance; do not scale horizontally. The F1 tier has CPU/resource limits and cold starts, so it is a portfolio demo, not a production service or availability guarantee. Confirm the selected offer's current terms and your spending controls in the Azure portal.
 
-For redeployment, preserve the app identity: set `APP_NAME` to the existing app name, pull the source, and run the script again. Optional `RESOURCE_GROUP`, `PLAN_NAME`, and `AZURE_LOCATION` must match the existing resources. Existing SECRET_KEY is preserved. Omitting APP_NAME generates a new app each time. Do not commit the SQLite database or your local `.venv`.
+For redeployment, preserve the app identity: set `APP_NAME` to the existing app name, pull the source, and run the script again. Optional `RESOURCE_GROUP` and `PLAN_NAME` must match the existing resources. `PLAN_NAME` is the base name; a region suffix is added to each candidate plan. Reused plans must be Linux F1 in the matching allowed region. For an existing app, set `AZURE_LOCATION` to its original region to reuse its regional plan. Existing SECRET_KEY is preserved. Omitting APP_NAME generates a new app each time. Do not commit the SQLite database or your local `.venv`.
 
 ## Verify before sharing
 
@@ -57,3 +57,14 @@ For redeployment, preserve the app identity: set `APP_NAME` to the existing app 
 To remove the dedicated demo resources when finished, review the group contents in the portal and delete only that dedicated group. The script prints a cleanup command. No paid resources or live AI have been provisioned from this workspace.
 
 Current evidence: local public-demo tests and Linux HTTP smoke pass. Azure authentication, actual resource creation, remote dependency build, public HTTPS behavior, persistence/restore, and free-tier eligibility remain unverified until you execute and check the deployment. Official Python App Service guide: https://learn.microsoft.com/azure/app-service/quickstart-python
+
+## Allowed-region retry
+
+In your existing Azure Cloud Shell clone, run:
+
+```bash
+git pull origin main
+bash scripts/deploy-azure.sh
+```
+
+The script retries westus first, canadacentral second, westus2 third. Use APP_NAME with your existing app name only if an app was already successfully created. No Azure region availability is confirmed from local/mock tests; verify the actual Cloud Shell errors and resulting website.

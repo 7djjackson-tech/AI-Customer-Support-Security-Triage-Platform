@@ -43,3 +43,7 @@ No visual browser/accessibility audit, Windows runtime execution, live-provider 
 ## Public-web-demo update
 
 Actual result after adding public access and the production signing-key check: **45 tests passed in 10.65 seconds**. New tests verify all eight public scenarios, separation from private ticket data, no database mutations, no live-provider calls even when live mode is configured, and production rejection of an unset signing key. Anonymous `/` now redirects to `/demo`; staff routes still require login. `bash -n scripts/deploy-azure.sh` checks shell syntax only, not Azure API execution. No authenticated Azure deployment or public URL is verified yet.
+
+## Allowed-region deployment script update
+
+Six mocked Azure CLI tests passed (1.90 seconds in the first run). They verify westus-first execution, fallback order westus/canadacentral/westus2, Linux F1-only commands, stopping before app creation when all plan attempts fail, rejection of paid SKUs/disallowed regions, and preservation of an existing paid plan. These Bash deployment tests are skipped on Windows; they are run in Linux CI/Cloud Shell-compatible environments. Shell syntax and staged whitespace checks also pass. This is control-flow validation only: Azure access, regional capacity, quotas, policy decisions, and deployment remain unverified from this workspace.
