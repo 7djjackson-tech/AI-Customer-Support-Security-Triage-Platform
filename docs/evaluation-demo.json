@@ -1,0 +1,234 @@
+{
+  "mode": "demo",
+  "label": "Deterministic rules-based demo; not live AI",
+  "dataset": "data/evaluation.csv",
+  "total": 24,
+  "scored": 24,
+  "service_failures_excluded": 0,
+  "correct_categories": 21,
+  "classification_accuracy": 0.875,
+  "false_security_alerts": 0,
+  "ordinary_cases": 16,
+  "false_alert_rate": 0.0,
+  "missed_security_incidents": 1,
+  "security_cases": 8,
+  "miss_rate": 0.125,
+  "details": [
+    {
+      "id": "EVAL-001",
+      "expected": "Returns/refunds",
+      "predicted": "Returns/refunds",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-002",
+      "expected": "Returns/refunds",
+      "predicted": "Returns/refunds",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-003",
+      "expected": "Returns/refunds",
+      "predicted": "Returns/refunds",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-004",
+      "expected": "Order issues",
+      "predicted": "Order issues",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-005",
+      "expected": "Order issues",
+      "predicted": "Order issues",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-006",
+      "expected": "Order issues",
+      "predicted": "Order issues",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-007",
+      "expected": "General questions",
+      "predicted": "General questions",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-008",
+      "expected": "General questions",
+      "predicted": "General questions",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-009",
+      "expected": "General questions",
+      "predicted": "General questions",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-010",
+      "expected": "Account access",
+      "predicted": "Account access",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-011",
+      "expected": "Account access",
+      "predicted": "Account access",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-012",
+      "expected": "Account access",
+      "predicted": "Account access",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-013",
+      "expected": "Potential security incidents",
+      "predicted": "Potential security incidents",
+      "expected_security": true,
+      "predicted_security": true,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-014",
+      "expected": "Potential security incidents",
+      "predicted": "Potential security incidents",
+      "expected_security": true,
+      "predicted_security": true,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-015",
+      "expected": "Potential security incidents",
+      "predicted": "Potential security incidents",
+      "expected_security": true,
+      "predicted_security": true,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-016",
+      "expected": "Potential security incidents",
+      "predicted": "Potential security incidents",
+      "expected_security": true,
+      "predicted_security": true,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-017",
+      "expected": "Potential security incidents",
+      "predicted": "Potential security incidents",
+      "expected_security": true,
+      "predicted_security": true,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-018",
+      "expected": "Account access",
+      "predicted": "Account access",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-019",
+      "expected": "General questions",
+      "predicted": "General questions",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-020",
+      "expected": "Order issues",
+      "predicted": "General questions",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-021",
+      "expected": "Potential security incidents",
+      "predicted": "Potential security incidents",
+      "expected_security": true,
+      "predicted_security": true,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-022",
+      "expected": "Potential security incidents",
+      "predicted": "General questions",
+      "expected_security": true,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-023",
+      "expected": "General questions",
+      "predicted": "Returns/refunds",
+      "expected_security": false,
+      "predicted_security": false,
+      "source": "demo",
+      "error": false
+    },
+    {
+      "id": "EVAL-024",
+      "expected": "Potential security incidents",
+      "predicted": "Potential security incidents",
+      "expected_security": true,
+      "predicted_security": true,
+      "source": "demo",
+      "error": false
+    }
+  ]
+}

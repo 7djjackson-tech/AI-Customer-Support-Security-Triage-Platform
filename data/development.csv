@@ -1,0 +1,9 @@
+external_id,customer_name,subject,message
+DEV-001,Avery Sample,Return a jacket,I purchased a jacket ten days ago. It is unworn and I would like to return it.
+DEV-002,Jordan Example,Missing parcel,My fictional order NG-104 says delivered but I cannot find the parcel.
+DEV-003,Casey Demo,Shipping question,Do you deliver to campus mailrooms?
+DEV-004,Morgan Sample,Password reset,I forgot my password and need help signing in.
+DEV-005,Riley Example,Someone took over my account,Someone changed my email address without permission and placed an order I did not authorize.
+DEV-006,Taylor Demo,Strange email,I received an email asking for my password. Is it really from your store?
+DEV-007,Alex Sample,Unexpected notification,I saw a sign-in notification but it might have been me using my new phone.
+DEV-008,Sam Demo,Refund status,My return was received last week. When should I expect my refund?
